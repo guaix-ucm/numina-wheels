@@ -1,0 +1,97 @@
+env:
+  global:
+  - REPO_DIR=numina
+  - BUILD_COMMIT=v0.1.0
+  - BUILD_DEPENDS="Cython numpy"
+  - TEST_DEPENDS="numpy scipy pytest"
+  - PLAT=x86_64
+  - UNICODE_WIDTH=32
+  - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+  - secure: UjT51y3uiJIByxroHrZb01TcUrT9UWeizz+l2RQUZ0qVe1mfEODIaXAscdpMa+BZo7UpfALbfTK+O83YRX/iGIPk5skvzZQlOhuzYHVX4Ph9hGHOgTRpOuwLtXOwHLO44uu7gMbJ4m5PezDaW0DxN780V/ZlgR/eYQU4C0SUDDnUhWriZy8FGslH0gS6jRPchzpsX47dHPdJFKZ7c/FJXrhjWC/RceiCcr//fx2MUpxvIsyF3pYFyMyIRkC1AR7oCk3ZbpyHOvoBidRL9iUv1IxkL6kqNcX8Z3Lqvyg3zrULqBl4DaXzL34S2Y52fb6ZP5YRKKQU8wFo7DdMRoHCzEWTuw1o7VIZmTUuyve4WvHLap1j5ko+5mXPcOBmXg9gcLDgYl5Gv9dqwWeO6a2iSR2vZA6qFiiWYSivGK5JgIYlGzfAd8yHNkY7LE24EJJN7k0w0JgzoF1ZR1MW6z6zJDgioQzx9Hm8eaYn8RW9BBpX72PljDG5z6k42Bew+MBMMiEel+HRW7dtTvmiOP+FTeEqSGQWWLkgcgzXbbkvXRyNh9arsSAy3p76HIQbg1qKmkn0WoilcVw9Ea1Fh9MAVVCWYqg+2+g5V4az4q5+RMW1tM2mM+ExOMuqB0dHFqrRg1n+sZjQBLiDkAyPNvILGZCv2THEKY/HHZjZsqtySCE=
+  - secure: YOMIU5RiQs6Lv5JkMEfX93kp2x4bYg+saZ42+NFzLIqq144pCP4HfDfzcf4GVUwgigxxcAYTLtrZy06fYAPDTYuc4yob/kIpSlEcI0o/xJqKcdGtn4q6HEFN7sFbSQVSCEC8XfsYlC3Ou3xhhbDl+j/xs/wG0fZ2QcjB5wut48wP7HORr+7h6d+RxYytaMiTVVLYrYxcmSm323/5eWpNdRAYtF0A++DLRD06caWgLZx4qXn88eNJMgGygWUQptttVBYCVkB2klrEKsL9uQGBo5z3UyRi6SDNNcJVWCSA1+WljJ0ELhKpCbuHP19YvaQdp+XaekWQdu6LNQZHB0ze17Oz+Ci5YyOL1ytfgj7AkASBaWvHeK9zbHtazts6hH528ExBCEy3NwBFlKi5wl/vCFkbWFu1rYnv9/qNXd40aLpsiIGvPHzTboLJjw4CHHTBMM6SxY4xQtP+ZB0PlGlqf8Db7mLq446DT9JV+xYtsk5IutwtKpOkDGpHMaIHkdX0skTo0taoX8ZvJ8+v1j+SkIVMcYb8xA1Dm05X6Bs63tSq7air6phBknipjLmwIEjRZgOCkB05zI+QogQpewYtvZ1krbCZLh++X2Vx8X/jz2obYrM4SomEJ0acp8GnsKYRDx5jlCPuVmZZFJwZ2lncuF1C8rK59a+ayT4l5ABSMkc=
+language: python
+python: 3.5
+sudo: required
+dist: trusty
+services: docker
+matrix:
+  exclude:
+  - python: 3.5
+  include:
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.6
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.6
+    - PLAT=i686
+  - os: linux
+    env: MB_PYTHON_VERSION=2.7
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.7
+    - UNICODE_WIDTH=16
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.7
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.7
+    - PLAT=i686
+    - UNICODE_WIDTH=16
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.3
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.3
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.4
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.4
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.5
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.5
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+    - PLAT=i686
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=2.7
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.4
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.5
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.6
+before_install:
+- source multibuild/common_utils.sh
+- source multibuild/travis_steps.sh
+- before_install
+install:
+- clean_code $REPO_DIR $BUILD_COMMIT
+- build_wheel $REPO_DIR $PLAT
+script:
+- install_run $PLAT
+after_success:
+- find ${TRAVIS_BUILD_DIR}/wheelhouse/ -type f -exec curl --ftp-create-dirs -T {} -u $FTP_USER:$FTP_PASSWORD ftp://astrax.fis.ucm.es/wheels/{} \;
