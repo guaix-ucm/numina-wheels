@@ -3,7 +3,7 @@ env:
   - REPO_DIR=numina
   - BUILD_COMMIT=v0.14
   - BUILD_DEPENDS="Cython numpy"
-  - TEST_DEPENDS="numpy scipy pytest"
+  - TEST_DEPENDS="numpy scipy pyyaml matplotlib pytest"
   - PLAT=x86_64
   - UNICODE_WIDTH=32
   - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -72,7 +72,7 @@ matrix:
     language: generic
     env:
     - MB_PYTHON_VERSION=3.6
-before_install:
+
 before_install:
 - if [ "$TRAVIS_BRANCH" == "daily" ]; then
      BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
