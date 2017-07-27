@@ -1,19 +1,18 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
 
-echo "We are in conf.sh"
+# Extra wheels URL contains manylinux wheels not available on pypi
+EXTRA_WHEELS_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
 
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    echo "We are in pre_build"
-    if [ -n "$IS_OSX" ]; then
-       echo "We are in IS_OSX"
-    else
-       echo "We are NOT in IS_OSX"
-       sudo yum install pkgconfig libpng-devel
-    fi
+    :
+}
 
+function pip_opts {
+    # Define extra pip arguments
+    echo "--find-links $EXTRA_WHEELS_URL"
 }
 
 function run_tests {
