@@ -4,7 +4,9 @@
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    :
+    if [ -z "$IS_OSX" ]; then
+        sudo apt-get pkg-config libpng-dev
+    fi
 }
 
 function run_tests {
