@@ -102,5 +102,4 @@ install:
 script:
 - install_run $PLAT
 after_success:
-- sleep $[ ( $RANDOM % 100 )  + 10 ]s
-- find ${TRAVIS_BUILD_DIR}/wheelhouse/ -type f -exec curl --ftp-create-dirs -T {} -u $FTP_USER:$FTP_PASSWORD ftp://astrax.fis.ucm.es/wheels/{} \;
+- find ${TRAVIS_BUILD_DIR}/wheelhouse/ -type f -exec curl --verbose --ftp-create-dirs -T {} -u $FTP_USER:$FTP_PASSWORD ftp://astrax.fis.ucm.es/wheels/{} \;
