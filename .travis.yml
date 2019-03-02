@@ -1,7 +1,7 @@
 env:
   global:
   - REPO_DIR=numina
-  - BUILD_COMMIT=v0.16.1
+  - BUILD_COMMIT=v0.20.1
   - BUILD_DEPENDS="Cython numpy"
   - TEST_DEPENDS="numpy scipy pyyaml matplotlib pytest"
   - PLAT=x86_64
