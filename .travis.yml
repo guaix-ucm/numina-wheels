@@ -1,8 +1,8 @@
 env:
   global:
   - REPO_DIR=numina
-  - BUILD_COMMIT=v0.20
-  - BUILD_DEPENDS="Cython numpy"
+  - BUILD_COMMIT=v0.20.1
+  - BUILD_DEPENDS="numpy"
   - TEST_DEPENDS="numpy scipy pytest"
   - PLAT=x86_64
   - UNICODE_WIDTH=32
